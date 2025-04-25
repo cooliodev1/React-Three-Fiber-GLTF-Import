@@ -18,10 +18,12 @@ export default function Object() {
         '/ao.jpg'// Load the overlay map texture
     ]);
 
-    const { roughness, aoIntensity, normalScale } = useControls({
+    const { roughness, aoIntensity, normalScale, ambientIntensity, directionalIntensity } = useControls({
         roughness: { value: 0, min: 0, max: 10, step: .01 },
         aoIntensity: { value: 0, min: 0, max: 5, step: .01  },
-        normalScale: { value: 0, min: 0, max: 5, step: .01  }
+        normalScale: { value: 0, min: 0, max: 5, step: .01  },
+        ambientIntensity: { value: 1.5, min: 0, max: 3, step: 0.1 },
+        directionalIntensity: { value: 3, min: 0, max: 6, step: 0.1 }
     });
 
     useFrame(() => {
@@ -53,8 +55,8 @@ export default function Object() {
 
     return <>
         <OrbitControls target={[0, 0, 0]} />
-        <ambientLight intensity={1.5} />
-        <directionalLight position={[5, 5, 5]} intensity={3} />
+        <ambientLight intensity={ambientIntensity} />
+        <directionalLight position={[5, 5, 5]} intensity={directionalIntensity} />
 
         {/* Rotating Mesh */}
         <mesh ref={objectRef} position-x={2}>
